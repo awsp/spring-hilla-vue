@@ -20,15 +20,15 @@ function decrease() {
   <div>
     Counter: {{ counterValue }}
   </div>
-  <section>
-    <button @click.prevent="increase">Increase</button>
-    <button @click.prevent="decrease">Decrease</button>
-  </section>
+  <ASpace wrap>
+    <AButton type="primary" htmlType="button" @click.prevent="increase">Increase</AButton>
+    <AButton type="link" @click.prevent="decrease">Decrease</AButton>
+  </ASpace>
 </template>
 
 <style scoped>
 div {
-  padding: 2em;
+  padding: .2em .5em;
 }
 
 section {
