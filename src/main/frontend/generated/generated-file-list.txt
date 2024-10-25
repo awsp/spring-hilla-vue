@@ -1,3 +1,4 @@
 ContentService.ts
+ReactiveEndpoint.ts
 connect-client.default.ts
 endpoints.ts
