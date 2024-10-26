@@ -26,6 +26,7 @@
     "construct-style-sheets-polyfill": "3.1.0",
     "date-fns": "2.29.3",
     "lit": "3.2.1",
+    "pinia": "^2.2.4",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router-dom": "6.26.2",
@@ -125,7 +126,7 @@
       "workbox-core": "7.1.0",
       "workbox-precaching": "7.1.0"
     },
-    "hash": "bbb322b3e726c1b42fd98baca48fbf2b49008d5a6362fbe4e0df83b6924206e1"
+    "hash": "cf72e4e2af531a7f7f19e87a046169d4a32c6f7ca23420ab6f0a56e141b6bb7a"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -154,6 +155,7 @@
     "@vaadin/vaadin-lumo-styles": "$@vaadin/vaadin-lumo-styles",
     "@vaadin/vaadin-material-styles": "$@vaadin/vaadin-material-styles",
     "vue": "$vue",
-    "vue-router": "$vue-router"
+    "vue-router": "$vue-router",
+    "pinia": "$pinia"
   }
 }
