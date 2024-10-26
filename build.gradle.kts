@@ -23,6 +23,7 @@ extra["vaadinVersion"] = "24.5.0"
 dependencies {
   implementation("com.vaadin:vaadin-spring-boot-starter")
   implementation("org.projectlombok:lombok")
+  implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
   developmentOnly("org.springframework.boot:spring-boot-devtools")
   annotationProcessor("org.projectlombok:lombok")
   testImplementation("org.springframework.boot:spring-boot-starter-test")

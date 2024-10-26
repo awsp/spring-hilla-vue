@@ -3,7 +3,7 @@ import HomeView from "Frontend/pages/HomeView.vue";
 import HelloView from "Frontend/pages/HelloView.vue";
 
 const router = createRouter({
-  history: createWebHistory('/'),
+  history: createWebHistory('/admin'),
   routes: [
     {
       path: '/',
