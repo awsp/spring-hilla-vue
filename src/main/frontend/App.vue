@@ -1,16 +1,22 @@
 <script setup lang="ts">
-import Counter from "Frontend/components/Counter.vue";
-import Content from "Frontend/components/Content.vue";
-import ReactiveStuff from "Frontend/components/ReactiveStuff.vue";
+import {RouterView} from 'vue-router'
 </script>
 
 <template>
   <h1>Vue App</h1>
-  <Counter :value="5"/>
-  <Content/>
-  <ReactiveStuff />
+
+  <nav>
+    <ASpace wrap>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/hello">Hello</RouterLink>
+    </ASpace>
+  </nav>
+
+  <RouterView/>
 </template>
 
 <style scoped>
-
+  nav {
+    padding: 1em .5em;
+  }
 </style>

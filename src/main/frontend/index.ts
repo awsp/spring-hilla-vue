@@ -2,7 +2,11 @@ import {createApp} from 'vue'
 import './style.css'
 // @ts-ignore
 import App from './App.vue';
+// @ts-ignore
+import router from './router';
 import Antd from 'ant-design-vue';
 
 const app = createApp(App);
-app.use(Antd).mount('#outlet')
+app.use(Antd)
+app.use(router);
+app.mount('#outlet');

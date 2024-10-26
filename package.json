@@ -28,7 +28,9 @@
     "lit": "3.2.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-router-dom": "6.26.2"
+    "react-router-dom": "6.26.2",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.25.7",
@@ -88,11 +90,7 @@
       "lit": "3.2.1",
       "react": "18.3.1",
       "react-dom": "18.3.1",
-      "react-router-dom": "6.26.2",
-      "vue": "^3.4.21",
-      "vue-router": "^4.3.0",
-      "vue-sonner": "^1.1.5",
-      "zod": "^3.23.8"
+      "react-router-dom": "6.26.2"
     },
     "devDependencies": {
       "@babel/preset-react": "7.25.7",
@@ -127,7 +125,7 @@
       "workbox-core": "7.1.0",
       "workbox-precaching": "7.1.0"
     },
-    "hash": "768f6f24099d487486faf7f16db2c5e0d26f1c9bb77a151a82836cd8db6f938a"
+    "hash": "bbb322b3e726c1b42fd98baca48fbf2b49008d5a6362fbe4e0df83b6924206e1"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -154,6 +152,8 @@
     "date-fns": "$date-fns",
     "@vaadin/vaadin-themable-mixin": "$@vaadin/vaadin-themable-mixin",
     "@vaadin/vaadin-lumo-styles": "$@vaadin/vaadin-lumo-styles",
-    "@vaadin/vaadin-material-styles": "$@vaadin/vaadin-material-styles"
+    "@vaadin/vaadin-material-styles": "$@vaadin/vaadin-material-styles",
+    "vue": "$vue",
+    "vue-router": "$vue-router"
   }
 }
