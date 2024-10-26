@@ -3,7 +3,7 @@ import './style.css'
 // @ts-ignore
 import App from './App.vue';
 // @ts-ignore
-import router from './router';
+import router from './router/index';
 import Antd from 'ant-design-vue';
 import {createPinia} from 'pinia'
 
