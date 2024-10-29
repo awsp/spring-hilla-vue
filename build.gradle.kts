@@ -24,9 +24,14 @@ dependencies {
   implementation("com.vaadin:vaadin-spring-boot-starter")
   implementation("org.projectlombok:lombok")
   implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+  implementation("org.springframework.boot:spring-boot-starter-security")
+  implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+  implementation("com.webauthn4j:webauthn4j-spring-security-core:0.10.0.RELEASE")
+  implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-cbor")
   developmentOnly("org.springframework.boot:spring-boot-devtools")
   annotationProcessor("org.projectlombok:lombok")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("org.springframework.security:spring-security-test")
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
