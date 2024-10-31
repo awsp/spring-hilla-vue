@@ -37,6 +37,11 @@
     <input id="clientExtensions" name="clientExtensions" th:field="*{clientExtensions}"
            type="hidden"/>
   </form>
+  <form action="/auth/login" method="post">
+    <input type="text" name="username"/>
+    <input type="password" name="password"/>
+    <input type="submit" value="submit">
+  </form>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Base64URL-ArrayBuffer/1.1.0/main.umd.min.js"
         integrity="sha512-eOUPAFNjvf5Bf4cyN0um8VXRwLEL4f5orlTmtors/PQkvWa32167uYO8k0TomwPqpewK1FflUU+fTFpbjmeSbQ=="

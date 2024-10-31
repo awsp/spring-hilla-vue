@@ -69,6 +69,7 @@ public class WebSecurityConfig {
         response.sendRedirect("/auth/login");
       })
       .loginPage("/auth/login")
+      .loginProcessingUrl("/auth/login")
       .attestationOptionsEndpoint()
       .rp()
       .name("WebAuthn4J Passkeys")
@@ -111,6 +112,7 @@ public class WebSecurityConfig {
     http.csrf(csrf -> {
       csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
       csrf.ignoringRequestMatchers("/webauthn/**");
+      csrf.ignoringRequestMatchers("/connect/**");
     });
 
     return http.build();
