@@ -111,6 +111,8 @@ public class WebSecurityConfig {
     http.csrf(csrf -> {
       csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
       csrf.ignoringRequestMatchers("/webauthn/**");
+      csrf.ignoringRequestMatchers("/connect/**");
+      csrf.ignoringRequestMatchers("/auth/**");
     });
 
     return http.build();
