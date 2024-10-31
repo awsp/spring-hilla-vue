@@ -8,20 +8,32 @@ import com.webauthn4j.data.attestation.statement.COSEAlgorithmIdentifier;
 import com.webauthn4j.springframework.security.WebAuthnAuthenticationProvider;
 import com.webauthn4j.springframework.security.config.configurers.WebAuthnLoginConfigurer;
 import com.webauthn4j.springframework.security.credential.WebAuthnCredentialRecordManager;
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.DefaultHttpSecurityExpressionHandler;
 import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
@@ -69,7 +81,7 @@ public class WebSecurityConfig {
         response.sendRedirect("/auth/login");
       })
       .loginPage("/auth/login")
-      .loginProcessingUrl("/auth/login")
+      .loginProcessingUrl("/auth/foo")
       .attestationOptionsEndpoint()
       .rp()
       .name("WebAuthn4J Passkeys")
@@ -95,9 +107,14 @@ public class WebSecurityConfig {
 
     http.authorizeHttpRequests(auth -> auth
       .requestMatchers(HttpMethod.GET, "/admin/test").permitAll()
+      .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyRole("USER", "ADMIN")
+      .requestMatchers(HttpMethod.POST, "/admin/**").hasAnyRole ("USER", "ADMIN")
+      .requestMatchers(HttpMethod.POST, "/connect/**").hasAnyRole("USER", "ADMIN")
       .requestMatchers(HttpMethod.GET, "/auth/login").permitAll()
       .requestMatchers(HttpMethod.POST, "/auth/signup").permitAll() // TODO: temporary enable
+      .requestMatchers(HttpMethod.POST, "/auth/foo").permitAll() // TODO: temporary enable
       .anyRequest()
+
       .access(getWebExpressionAuthorizationManager())
     );
 
@@ -113,14 +130,51 @@ public class WebSecurityConfig {
       csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
       csrf.ignoringRequestMatchers("/webauthn/**");
       csrf.ignoringRequestMatchers("/connect/**");
+      csrf.ignoringRequestMatchers("/auth/**");
+      csrf.disable();
     });
 
     return http.build();
   }
 
+  @Bean
+  public DaoAuthenticationProvider daoAuthenticationProvider() {
+    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    authProvider.setUserDetailsService(userDetailsService());
+//    authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
+
+    Map<String, PasswordEncoder> encoders = new HashMap<>();
+    encoders.put("noop", NoOpPasswordEncoder.getInstance());
+    authProvider.setPasswordEncoder(new DelegatingPasswordEncoder("noop", encoders));
+
+    return authProvider;
+  }
+
+  @Bean
+  public UserDetailsManager userDetailsService() {
+    // Configure users and roles in memory
+    return new InMemoryUserDetailsManager(
+      // the {noop} prefix tells Spring that the password is not encoded
+      User.withUsername("user").password("{noop}user").roles("USER").build(),
+      User.withUsername("admin").password("{noop}admin").roles("ADMIN", "USER").build()
+    );
+  }
+
   private WebExpressionAuthorizationManager getWebExpressionAuthorizationManager() {
     DefaultHttpSecurityExpressionHandler expressionHandler = new DefaultHttpSecurityExpressionHandler();
     expressionHandler.setApplicationContext(applicationContext);
+    expressionHandler.setPermissionEvaluator(new PermissionEvaluator() {
+
+      @Override
+      public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
+        return true;
+      }
+
+      @Override
+      public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
+        return true;
+      }
+    });
     WebExpressionAuthorizationManager authorizationManager = new WebExpressionAuthorizationManager(EXPRESSION);
     authorizationManager.setExpressionHandler(expressionHandler);
 
