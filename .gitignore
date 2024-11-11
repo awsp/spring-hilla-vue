@@ -39,3 +39,5 @@ out/
 src/main/frontend/generated
 src/main/resources/*.mp4
 .DS_Store
+*.db/
+*.log

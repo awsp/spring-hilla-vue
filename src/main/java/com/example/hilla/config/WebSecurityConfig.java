@@ -96,6 +96,9 @@ public class WebSecurityConfig {
       .requestMatchers(HttpMethod.GET, "/admin/test").permitAll()
       .requestMatchers(HttpMethod.GET, "/auth/login").permitAll()
       .requestMatchers(HttpMethod.POST, "/auth/signup").permitAll() // TODO: temporary enable
+      .requestMatchers(HttpMethod.POST, "/connect/**").permitAll() // TODO: temporary enable
+      .requestMatchers(HttpMethod.GET, "/reactive/**").anonymous()
+      .requestMatchers(HttpMethod.GET, "/video.html").anonymous()
       .anyRequest()
       .access(getWebExpressionAuthorizationManager())
     );

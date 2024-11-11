@@ -27,6 +27,8 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
   implementation("com.webauthn4j:webauthn4j-spring-security-core:0.10.0.RELEASE")
+  implementation("com.surrealdb:surrealdb:0.2.0")
+  implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-cbor")
   developmentOnly("org.springframework.boot:spring-boot-devtools")
   annotationProcessor("org.projectlombok:lombok")
